@@ -1,6 +1,7 @@
 # cryptography
 
-> A Vue.js project
+> A Vue.js project.   
+> This project is used to visualize AES and RSA algorithm. 
 
 ## Build Setup
 
