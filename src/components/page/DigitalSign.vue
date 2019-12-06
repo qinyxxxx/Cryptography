@@ -1,59 +1,61 @@
 <template>
   <div class="table">
     <div class="container">
-      <div class="handle-box" font-size:>
-        Step 1 xxx
+      <div class="handle-box">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+          <el-breadcrumb-item :to="{ path: '/' }">Generate Keys</el-breadcrumb-item>
+          <el-breadcrumb-item>Exchange Public Keys</el-breadcrumb-item>
+          <el-breadcrumb-item>Encrypt Messages With My Private Key</el-breadcrumb-item>
+          <el-breadcrumb-item>Decrypt Messages With Sender's Public Key</el-breadcrumb-item>
+        </el-breadcrumb>
         <br />
         <br />
         <br />
         <!-- <el-button type="plain" @click="clear">清除/刷新</el-button> -->
       </div>
-      <el-row :gutter="20" type="flex" justify="center">
-        <el-col :span="8">
+      <el-row :type="flex" justify="center">
+        <el-col :span="6" offset="6">
           <div class="grid-content">
             <el-image style="width: 100px; height: 100px" :src="guiUrl" :fit="fit"></el-image>
             <br />
             <br />
             <br />
-            <br />
             Public key: {{pub_key}}
             <br />
             <br />
             Private key: {{pri_key}}
-          </div>
-        </el-col>
-        <el-col :span="8">
-          <br />
-          <br />
-          <br />
-          <div class="grid-content">
+            <br />
+            <br />
             <el-button type="primary" @click="generate">Generate</el-button>
           </div>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="6" offset="2">
           <div class="grid-content">
             <el-image style="width: 100px; height: 100px" :src="waUrl" :fit="fit"></el-image>
             <br />
             <br />
             <br />
-            <br />
             Public key: {{pub_key}}
             <br />
             <br />
             Private key: {{pri_key}}
+            <br />
+            <br />
+            <el-button type="primary" @click="generate">Generate</el-button>
           </div>
         </el-col>
       </el-row>
       <br />
       <br />
-      <el-steps :active="active" finish-status="success">
+      <!-- <el-steps :active="active" finish-status="success">
         <el-step title="Step 1"></el-step>
         <el-step title="Step 2"></el-step>
         <el-step title="Step 3"></el-step>
         <el-step title="Step 4"></el-step>
         <el-step title="Step 5"></el-step>
-      </el-steps>
-      <el-button style="margin-top: 12px;" @click="next">下一步</el-button>
+      </el-steps> -->
+      <el-button style="margin-top: 12px;" @click="previous">Previous</el-button>
+      <el-button style="margin-top: 12px;" @click="next">Next</el-button>
     </div>
   </div>
 </template>
@@ -93,6 +95,9 @@ export default {
     formatter(row, column) {
       return row.userAddress;
     },
+    preivious() {
+      if (this.active-- < 0) this.active = 0;
+    },
     next() {
       if (this.active++ > 2) this.active = 0;
     },
@@ -129,36 +134,36 @@ export default {
       //   }
       // ];
     },
-    filterStatus(value, row) {
-      return row.userStatus === value;
-    },
-    search() {
-      if (this.selectWord == "") {
-        this.$message.error("抱歉，搜索内容不能为空");
-      } else {
-        this.userID = this.selectWord;
-        this.$axios
-          .post(this.urlSelectUser, {
-            userID: this.userID
-          })
-          .then(res => {
-            let userData = res.data.userData.data;
-            if (userData.length == 0) {
-              this.$message({
-                message: "未找到含有'" + this.selectWord + "'的记录",
-                type: "info"
-              });
-            } else {
-              this.userData = userData;
-              this.total = userData.length;
-            }
-          });
-      }
-    },
-    clear() {
-      this.selectWord = "";
-      this.getData();
-    }
+    // filterStatus(value, row) {
+    //   return row.userStatus === value;
+    // },
+    // search() {
+    //   if (this.selectWord == "") {
+    //     this.$message.error("抱歉，搜索内容不能为空");
+    //   } else {
+    //     this.userID = this.selectWord;
+    //     this.$axios
+    //       .post(this.urlSelectUser, {
+    //         userID: this.userID
+    //       })
+    //       .then(res => {
+    //         let userData = res.data.userData.data;
+    //         if (userData.length == 0) {
+    //           this.$message({
+    //             message: "未找到含有'" + this.selectWord + "'的记录",
+    //             type: "info"
+    //           });
+    //         } else {
+    //           this.userData = userData;
+    //           this.total = userData.length;
+    //         }
+    //       });
+    //   }
+    // },
+    // clear() {
+    //   this.selectWord = "";
+    //   this.getData();
+    // }
   }
 };
 </script>
