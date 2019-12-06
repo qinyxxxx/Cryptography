@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
         path: '/',
-        redirect: '/RSA'
+        redirect: '/RSA_1'
     },
     {
       path: '/Home',
@@ -15,9 +15,14 @@ export default new Router({
       meta: { title: '路由描述' },
       children: [
         {
-          path: '/RSA',
-          component: resolve => require(['../components/page/RSA.vue'], resolve),
-          meta: { title: 'RSA' }
+          path: '/RSA_1',
+          component: resolve => require(['../components/page/RSA_1.vue'], resolve),
+          meta: { title: 'Generate Keys' }
+        },
+        {
+          path: '/RSA_2',
+          component: resolve => require(['../components/page/RSA_2.vue'], resolve),
+          meta: { title: 'Exchange Public Keys' }
         },
         {
           path: '/AES',

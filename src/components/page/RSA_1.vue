@@ -3,8 +3,8 @@
     <div class="container">
       <div class="handle-box">
         <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/' }">Generate Keys</el-breadcrumb-item>
-          <el-breadcrumb-item>Exchange Public Keys</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/RSA_1' }">Generate Keys</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/RSA_2' }">Exchange Public Keys</el-breadcrumb-item>
           <el-breadcrumb-item>Encrypt Messages With Receiver's Public Key</el-breadcrumb-item>
           <el-breadcrumb-item>Decrypt Messages With My Private Key</el-breadcrumb-item>
         </el-breadcrumb>
@@ -20,13 +20,13 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key}}
+            Public key: {{pub_key_A}}
             <br />
             <br />
-            Private key: {{pri_key}}
+            Private key: {{pri_key_A}}
             <br />
             <br />
-            <el-button type="primary" @click="generate">Generate</el-button>
+            <el-button type="primary" @click="generate('A')">Generate</el-button>
           </div>
         </el-col>
         <el-col :span="6" offset="2">
@@ -35,13 +35,13 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key}}
+            Public key: {{pub_key_B}}
             <br />
             <br />
-            Private key: {{pri_key}}
+            Private key: {{pri_key_B}}
             <br />
             <br />
-            <el-button type="primary" @click="generate">Generate</el-button>
+            <el-button type="primary" @click="generate('B')">Generate</el-button>
           </div>
         </el-col>
       </el-row>
@@ -53,8 +53,7 @@
         <el-step title="Step 3"></el-step>
         <el-step title="Step 4"></el-step>
         <el-step title="Step 5"></el-step>
-      </el-steps> -->
-      <el-button style="margin-top: 12px;" @click="previous">Previous</el-button>
+      </el-steps>-->
       <el-button style="margin-top: 12px;" @click="next">Next</el-button>
     </div>
   </div>
@@ -67,73 +66,57 @@ export default {
   name: "order",
   data() {
     return {
-      urlSelectUser: "/pizzaexpress/user/getuserbyid",
-      urlInit: "/pizzaexpress/user/getuserinfo",
+      urlGenerate: "/cryptography/rsa/generate",
       guiUrl: gui,
       waUrl: wa,
-      pub_key: 1111,
-      pri_key: 222,
-      active: 0,
-      userData: [],
-      cur_page: 1,
-      total: 0,
-      selectWord: "",
-      userID: "",
-      orderObj: "",
-      orderFormVisible: false
+      pub_key_A: "",
+      pri_key_A: "",
+      pub_key_B: "",
+      pri_key_B: ""
     };
   },
   created() {
-    this.getData();
+    this.pub_key_A = sessionStorage.getItem("pub_key_A");
+    this.pri_key_A = sessionStorage.getItem("pri_key_A");
+    this.pub_key_B = sessionStorage.getItem("pub_key_B");
+    this.pri_key_B = sessionStorage.getItem("pri_key_B");
   },
   methods: {
-    // 分页导航
-    handleCurrentChange(val) {
-      this.cur_page = val;
-      this.getData();
-    },
-    formatter(row, column) {
-      return row.userAddress;
-    },
-    preivious() {
-      if (this.active-- < 0) this.active = 0;
-    },
     next() {
-      if (this.active++ > 2) this.active = 0;
+      this.$router.push("/RSA_2");
     },
-    getData() {
-      this.$axios.post(this.urlInit).then(res => {
-        let userData = res.data.userData.data;
-        this.userData = userData;
-        this.total = userData.length;
-      });
-      // this.userData = [
-      //   {
-      //     userID: "1",
-      //     userName: "小王",
-      //     userPhone: "1388888888",
-      //     userStatus: "在线",
-      //     userAddress: "小王家里",
-      //     lastLogin: "2018-12-01 10:00"
-      //   },
-      //   {
-      //     userID: "2",
-      //     userName: "大王",
-      //     userPhone: "1388888888",
-      //     userStatus: "离线",
-      //     userAddress: "小王家里",
-      //     lastLogin: "2018-12-01 10:00"
-      //   },
-      //   {
-      //     userID: "1",
-      //     userName: "小王",
-      //     userPhone: "1388888888",
-      //     userStatus: "在线",
-      //     userAddress: "小王家里",
-      //     lastLogin: "2018-12-01 10:00"
+
+    generate(user) {
+      // this.$axios.post(this.urlGenerate).then(res => {
+      //   let pub_key = res.data.pub_key;
+      //   let pri_key = res.data.pri_key;
+      //   if (pub_key == None) {
+      //     this.$message({
+      //       message: "failed to generate'",
+      //       type: "error"
+      //     });
+      //   } else {
+      //     if (user == "A") {
+      //       this.pub_key_A = pub_key;
+      //       this.pri_key_A = pri_key;
+      //     } else {
+      //       this.pub_key_B = pub_key;
+      //       this.pri_key_B = pri_key;
+      //     }
       //   }
-      // ];
-    },
+      // });
+      if (user == "A") {
+        this.pub_key_A = "public_aaa";
+        this.pri_key_A = "private_aaa";
+        sessionStorage.setItem("pub_key_A", this.pub_key_A);
+        sessionStorage.setItem("pri_key_A", this.pri_key_A);
+      } else {
+        this.pub_key_B = "public_bbb";
+        this.pri_key_B = "private_bbb";
+        sessionStorage.setItem("pub_key_B", this.pub_key_B);
+        sessionStorage.setItem("pri_key_B", this.pri_key_B);
+      }
+    }
     // filterStatus(value, row) {
     //   return row.userStatus === value;
     // },
