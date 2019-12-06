@@ -25,6 +25,11 @@ export default new Router({
           meta: { title: 'Exchange Public Keys' }
         },
         {
+          path: '/RSA_3',
+          component: resolve => require(['../components/page/RSA_3.vue'], resolve),
+          meta: { title: 'Secure Your Communication With Keys!' }
+        },
+        {
           path: '/AES',
           component: resolve => require(['../components/page/AES.vue'], resolve),
           meta: { title: 'AES' }

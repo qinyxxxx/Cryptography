@@ -52,6 +52,25 @@
       </el-row>
       <br />
       <br />
+      
+
+      <el-row :type="flex" justify="center">
+        <el-col :span="6">
+            <el-input placeholder="Alice's Plain Text" v-model="input1" show-password></el-input>
+        </el-col>
+        <el-col :span="2">
+            <el-button type="primary">Encrypt!</el-button>
+        </el-col>
+        <el-col :span="6" offset="1">
+            <el-input placeholder="vneoaivrbelajhb" v-model="input2" :disabled="true"></el-input>
+        </el-col>
+        <el-col :span="6" offset="1">
+            <el-input placeholder="Alice's Plain Text" v-model="input3" :disabled="true"></el-input>
+        </el-col>
+      </el-row>
+
+      <br />
+      <br />
       <!-- <el-steps :active="active" finish-status="success">
         <el-step title="Step 1"></el-step>
         <el-step title="Step 2"></el-step>
@@ -80,7 +99,10 @@ export default {
       pub_key_B: "",
       pri_key_B: "",
       pub_key_fromA: "",
-      pub_key_fromB: ""
+      pub_key_fromB: "", 
+      input1: "", 
+      input2: "", 
+      input3: ""
     };
   },
   created() {
@@ -91,10 +113,10 @@ export default {
   },
   methods: {
     previous() {
-      this.$router.push("/RSA_1");
+      this.$router.push("/RSA_2");
     },
     next() {
-      this.$router.push("/RSA_3");
+      this.$router.push("/RSA_1");
     },
     getData() {
       this.$axios.post(this.urlInit).then(res => {
