@@ -26,9 +26,6 @@
             <br />
             <br />
             {{pub_key_fromB}}
-            <br />
-            <br />
-            <el-button type="primary" @click="publish('A')">Publish</el-button>
           </div>
         </el-col>
         <el-col :span="6" offset="2">
@@ -44,9 +41,6 @@
             <br />
             <br />
             {{pub_key_fromA}}
-            <br />
-            <br />
-            <el-button type="primary" @click="publish('B')">Publish</el-button>
           </div>
         </el-col>
       </el-row>
