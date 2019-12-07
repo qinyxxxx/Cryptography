@@ -53,8 +53,7 @@ export default {
   name: "order",
   data() {
     return {
-      urlSelectUser: "/pizzaexpress/user/getuserbyid",
-      urlInit: "/pizzaexpress/user/getuserinfo",
+      urlPublish: "/digitalsign/publish",
       guiUrl: gui,
       waUrl: wa,
       pub_key: "",

@@ -72,7 +72,7 @@ export default {
   name: "order",
   data() {
     return {
-      urlPublish: "/cryptography/rsa/publish",
+      urlPublish: "/rsa/publish",
       guiUrl: gui,
       waUrl: wa,
       pub_key_A: "",

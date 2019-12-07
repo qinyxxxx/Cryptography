@@ -65,7 +65,7 @@ export default {
   name: "order",
   data() {
     return {
-      urlGenerate: "/cryptography/rsa/generate",
+      urlGenerate: "/rsa/generate",
       guiUrl: gui,
       waUrl: wa,
       pub_key_A: "",
@@ -86,39 +86,42 @@ export default {
     },
 
     generate(user) {
-      // this.$axios.post(this.urlGenerate).then(res => {
-      //   let pub_key = res.data.pub_key;
-      //   let pri_key = res.data.pri_key;
-      //   if (pub_key == None) {
-      //     this.$message({
-      //       message: "failed to generate'",
-      //       type: "error"
-      //     });
-      //   } else {
-      //     if (user == "A") {
-      //       this.pub_key_A = pub_key;
-      //       this.pri_key_A = pri_key;
-      //       sessionStorage.setItem("pub_key_A", this.pub_key_A);
-      //       sessionStorage.setItem("pri_key_A", this.pri_key_A);
-      //     } else {
-      //       this.pub_key_B = pub_key;
-      //       this.pri_key_B = pri_key;
-      //       sessionStorage.setItem("pub_key_B", this.pub_key_B);
-      //       sessionStorage.setItem("pri_key_B", this.pri_key_B);
-      //     }
-      //   }
-      // });
-      if (user == "A") {
-        this.pub_key_A = "public_aaa";
-        this.pri_key_A = "private_aaa";
-        sessionStorage.setItem("pub_key_A", this.pub_key_A);
-        sessionStorage.setItem("pri_key_A", this.pri_key_A);
-      } else {
-        this.pub_key_B = "public_bbb";
-        this.pri_key_B = "private_bbb";
-        sessionStorage.setItem("pub_key_B", this.pub_key_B);
-        sessionStorage.setItem("pri_key_B", this.pri_key_B);
-      }
+      this.$axios.post(this.urlGenerate).then(res => {
+        let pub_key = res.data.key_data.pub_key;
+        let pri_key = res.data.key_data.pri_key;
+        console.log(pub_key);
+        let status_code = res.statusCode;
+        console.log("this is code:", status_code);
+        if (status_code == 500) {
+          this.$message({
+            message: "failed to generate'",
+            type: "error"
+          });
+        } else {
+          if (user == "A") {
+            this.pub_key_A = pub_key;
+            this.pri_key_A = pri_key;
+            sessionStorage.setItem("pub_key_A", this.pub_key_A);
+            sessionStorage.setItem("pri_key_A", this.pri_key_A);
+          } else {
+            this.pub_key_B = pub_key;
+            this.pri_key_B = pri_key;
+            sessionStorage.setItem("pub_key_B", this.pub_key_B);
+            sessionStorage.setItem("pri_key_B", this.pri_key_B);
+          }
+        }
+      });
+      // if (user == "A") {
+      //   this.pub_key_A = "public_aaa";
+      //   this.pri_key_A = "private_aaa";
+      //   sessionStorage.setItem("pub_key_A", this.pub_key_A);
+      //   sessionStorage.setItem("pri_key_A", this.pri_key_A);
+      // } else {
+      //   this.pub_key_B = "public_bbb";
+      //   this.pri_key_B = "private_bbb";
+      //   sessionStorage.setItem("pub_key_B", this.pub_key_B);
+      //   sessionStorage.setItem("pri_key_B", this.pri_key_B);
+      // }
     }
     // filterStatus(value, row) {
     //   return row.userStatus === value;

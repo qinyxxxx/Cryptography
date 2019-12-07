@@ -62,7 +62,7 @@ export default {
   name: "order",
   data() {
     return {
-      urlEncrypt: "/cryptography/aes/encrypt",
+      urlEncrypt: "/aes/encrypt",
       guiUrl: gui,
       waUrl: wa,
       shared_sec: "",

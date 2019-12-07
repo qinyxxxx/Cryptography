@@ -47,7 +47,7 @@ export default {
   name: "order",
   data() {
     return {
-      urlGenerate: "/cryptography/digitalsign/generate",
+      urlGenerate: "/digitalsign/generate",
       guiUrl: gui,
       waUrl: wa,
       pub_key: "",

@@ -53,7 +53,7 @@ export default {
   name: "order",
   data() {
     return {
-      urlGenerate: "/cryptography/aes/generate",
+      urlGenerate: "/aes/generate",
       guiUrl: gui,
       waUrl: wa,
       shared_sec: ""

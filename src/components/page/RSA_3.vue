@@ -80,7 +80,7 @@ export default {
   name: "order",
   data() {
     return {
-      urlEncrypt: "/cryptography/rsa/encrypt",
+      urlEncrypt: "/rsa/encrypt",
       guiUrl: gui,
       waUrl: wa,
       pub_key_A: "",
@@ -106,24 +106,26 @@ export default {
     //   return row.userStatus === value;
     // },
     encrypt() {
-      // this.$axios
-      //   .post(this.urlEncrypt, {
-      //     plain_text: this.plain_text
-      //   })
-      //   .then(res => {
-      //     let res_data = res.data;
-      //     if (red_data.length == 0) {
-      //       this.$message({
-      //         message: "failed to encrypt",
-      //         type: "error"
-      //       });
-      //     } else {
-      //       this.cipher_text = res_data.cipher_text;
-      //       this.decrypt_text = res_data.decrypt_text;
-      //     }
-      //   });
-      this.cipher_text = 'asdsadasfdsf';
-      this.decrypt_text = this.plain_text;
+      this.$axios
+        .post(this.urlEncrypt, {
+          plain_text: this.plain_text,
+          pub_key: this.pub_key_B,
+        })
+        .then(res => {
+          let res_data = res.data.text_data;
+          if (res_data.length == 0) {
+            this.$message({
+              message: "failed to encrypt",
+              type: "error"
+            });
+          } else {
+            this.cipher_text = res_data.cipher_text;
+            this.decrypt_text = res_data.decrypt_text;
+          }
+        });
+
+      // this.cipher_text = 'asdsadasfdsf';
+      // this.decrypt_text = this.plain_text;
     },
     // search() {
     //   if (this.selectWord == "") {

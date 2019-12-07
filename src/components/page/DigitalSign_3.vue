@@ -72,7 +72,7 @@ export default {
   name: "order",
   data() {
     return {
-      urlSelectUser: "/pizzaexpress/user/getuserbyid",
+      urlencrypt: "/digitalsign/encrypt",
       guiUrl: gui,
       waUrl: wa,
       pub_key: "",
