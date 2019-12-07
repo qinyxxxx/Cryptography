@@ -4,9 +4,8 @@
       <div class="handle-box">
         <el-breadcrumb separator-class="el-icon-arrow-right">
           <el-breadcrumb-item :to="{ path: '/RSA_1' }">Generate Keys</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/RSA_2' }">Exchange Public Keys</el-breadcrumb-item>
-          <el-breadcrumb-item>Encrypt Messages With Receiver's Public Key</el-breadcrumb-item>
-          <el-breadcrumb-item>Decrypt Messages With My Private Key</el-breadcrumb-item>
+          <el-breadcrumb-item>Exchange Public Keys</el-breadcrumb-item>
+          <el-breadcrumb-item>Secure Your Communication With Keys!</el-breadcrumb-item>
         </el-breadcrumb>
         <br />
         <br />

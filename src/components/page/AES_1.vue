@@ -3,9 +3,8 @@
     <div class="container">
       <div class="handle-box">
         <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/RSA_1' }">Generate Keys</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/RSA_2' }">Exchange Public Keys</el-breadcrumb-item>
-          <el-breadcrumb-item>Secure Your Communication With Keys!</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/AES_1' }">Generate A Shared Secret</el-breadcrumb-item>
+          <el-breadcrumb-item>Secure Your Communication With Your Key!</el-breadcrumb-item>
         </el-breadcrumb>
         <br />
         <br />
@@ -19,16 +18,10 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key_A}}
+            Public key: {{pub_key}}
             <br />
             <br />
-            Private key: {{pri_key_A}}
-            <br />
-            <br />
-            {{pub_key_fromB}}
-            <br />
-            <br />
-            <el-button type="primary" @click="publish('A')">Publish</el-button>
+            Private key: {{pri_key}}
           </div>
         </el-col>
         <el-col :span="6" offset="2">
@@ -37,19 +30,22 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key_B}}
+            Public key: {{pub_key}}
             <br />
             <br />
-            Private key: {{pri_key_B}}
-            <br />
-            <br />
-            {{pub_key_fromA}}
-            <br />
-            <br />
-            <el-button type="primary" @click="publish('B')">Publish</el-button>
+            Private key: {{pri_key}}
           </div>
         </el-col>
       </el-row>
+      <br />
+      <br />
+
+      <el-row :type="flex" justify="center">
+        <el-col :span="8" offset="9">
+          <el-button type="primary" @click="generate">Generate a shared secret!</el-button>
+        </el-col>
+      </el-row>
+
       <br />
       <br />
       <!-- <el-steps :active="active" finish-status="success">
@@ -58,8 +54,8 @@
         <el-step title="Step 3"></el-step>
         <el-step title="Step 4"></el-step>
         <el-step title="Step 5"></el-step>
-      </el-steps>-->
-      <el-button style="margin-top: 12px;" @click="previous">Previous</el-button>
+      </el-steps> -->
+      <!-- <el-button style="margin-top: 12px;" @click="previous">Previous</el-button> -->
       <el-button style="margin-top: 12px;" @click="next">Next</el-button>
     </div>
   </div>
@@ -72,29 +68,39 @@ export default {
   name: "order",
   data() {
     return {
-      urlPublish: "/cryptography/rsa/publish",
+      urlSelectUser: "/pizzaexpress/user/getuserbyid",
+      urlInit: "/pizzaexpress/user/getuserinfo",
       guiUrl: gui,
       waUrl: wa,
-      pub_key_A: "",
-      pri_key_A: "",
-      pub_key_B: "",
-      pri_key_B: "",
-      pub_key_fromA: "",
-      pub_key_fromB: ""
+      pub_key: 1111,
+      pri_key: 222,
+      active: 0,
+      userData: [],
+      cur_page: 1,
+      total: 0,
+      selectWord: "",
+      userID: "",
+      orderObj: "",
+      orderFormVisible: false
     };
   },
   created() {
-    this.pub_key_A = sessionStorage.getItem("pub_key_A");
-    this.pri_key_A = sessionStorage.getItem("pri_key_A");
-    this.pub_key_B = sessionStorage.getItem("pub_key_B");
-    this.pri_key_B = sessionStorage.getItem("pri_key_B");
+    this.getData();
   },
   methods: {
-    previous() {
-      this.$router.push("/RSA_1");
+    // 分页导航
+    handleCurrentChange(val) {
+      this.cur_page = val;
+      this.getData();
     },
+    formatter(row, column) {
+      return row.userAddress;
+    },
+    // previous() {
+    //   this.$router.push("/");
+    // },
     next() {
-      this.$router.push("/RSA_3");
+      this.$router.push("/AES_2");
     },
     getData() {
       this.$axios.post(this.urlInit).then(res => {
@@ -102,19 +108,33 @@ export default {
         this.userData = userData;
         this.total = userData.length;
       });
+      // this.userData = [
+      //   {
+      //     userID: "1",
+      //     userName: "小王",
+      //     userPhone: "1388888888",
+      //     userStatus: "在线",
+      //     userAddress: "小王家里",
+      //     lastLogin: "2018-12-01 10:00"
+      //   },
+      //   {
+      //     userID: "2",
+      //     userName: "大王",
+      //     userPhone: "1388888888",
+      //     userStatus: "离线",
+      //     userAddress: "小王家里",
+      //     lastLogin: "2018-12-01 10:00"
+      //   },
+      //   {
+      //     userID: "1",
+      //     userName: "小王",
+      //     userPhone: "1388888888",
+      //     userStatus: "在线",
+      //     userAddress: "小王家里",
+      //     lastLogin: "2018-12-01 10:00"
+      //   }
+      // ];
     },
-
-    publish(user) {
-      if (user == 'A') {
-        console.log(this.pub_key_fromA);
-        console.log(this.pub_key_A);
-        this.pub_key_fromA = this.pub_key_A;
-      } else {
-        console.log(this.pub_key_fromB);
-        console.log(this.pub_key_B);
-        this.pub_key_fromB = this.pub_key_B;
-      }
-    }
     // filterStatus(value, row) {
     //   return row.userStatus === value;
     // },

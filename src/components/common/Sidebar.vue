@@ -49,18 +49,18 @@ export default {
       collapse: false,
       items: [
         {
-          icon: "el-icon-error",
+          icon: "el-icon-arrow-right",
           index: "RSA_1",
-          title: "RSA"
+          title: "RSA Encryption"
         },
         {
-          icon: "el-icon-success",
-          index: "AES",
-          title: "AES"
+          icon: "el-icon-arrow-right",
+          index: "AES_1",
+          title: "AES Encryption"
         },
         {
-          icon: "el-icon-warning",
-          index: "DigitalSign",
+          icon: "el-icon-arrow-right",
+          index: "DigitalSign_1",
           title: "Digital Sign"
         }
       ]
@@ -93,7 +93,7 @@ export default {
   width: 0;
 }
 .sidebar-el-menu:not(.el-menu--collapse) {
-  width: 150px;
+  width: 250px;
 }
 .sidebar > ul {
   height: 100%;
