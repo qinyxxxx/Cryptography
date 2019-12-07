@@ -40,10 +40,19 @@ export default new Router({
           meta: { title: 'Secure Your Communication With Your Key!' }
         },
         {
-          path: '/DigitalSign',
-          name: 'DigitalSign',
-          component: resolve => require(['../components/page/DigitalSign.vue'], resolve),
-          meta: { title: 'Digital Sign' }
+          path: '/DigitalSign_1',
+          component: resolve => require(['../components/page/DigitalSign_1.vue'], resolve),
+          meta: { title: 'Generate Keys' }
+        },
+        {
+          path: '/DigitalSign_2',
+          component: resolve => require(['../components/page/DigitalSign_2.vue'], resolve),
+          meta: { title: 'Sign Messages And Send It' }
+        },
+        {
+          path: '/DigitalSign_3',
+          component: resolve => require(['../components/page/DigitalSign_3.vue'], resolve),
+          meta: { title: 'Validate Messages' }
         },
       ]
     },

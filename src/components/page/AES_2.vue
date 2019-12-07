@@ -41,8 +41,17 @@
       <br />
 
       <el-row :type="flex" justify="center">
-        <el-col :span="8" offset="9">
-          <el-button type="primary" @click="generate">Generate a shared secret!</el-button>
+        <el-col :span="6">
+            <el-input v-model="input1" placeholder="Alice's Plain Text"></el-input>
+        </el-col>
+        <el-col :span="2">
+            <el-button type="primary">Encrypt!</el-button>
+        </el-col>
+        <el-col :span="6" offset="1">
+            <el-input placeholder="vneoaivrbelajhb" v-model="input2" :disabled="true"></el-input>
+        </el-col>
+        <el-col :span="6" offset="1">
+            <el-input placeholder="Alice's Plain Text" v-model="input3" :disabled="true"></el-input>
         </el-col>
       </el-row>
 
@@ -56,7 +65,7 @@
         <el-step title="Step 5"></el-step>
       </el-steps> -->
       <el-button style="margin-top: 12px;" @click="previous">Previous</el-button>
-      <el-button style="margin-top: 12px;" @click="next">Next</el-button>
+      <!-- <el-button style="margin-top: 12px;" @click="next">Next</el-button> -->
     </div>
   </div>
 </template>
@@ -99,9 +108,9 @@ export default {
     previous() {
       this.$router.push("/AES_1");
     },
-    next() {
-      this.$router.push("/AES_1");
-    },
+    // next() {
+    //   this.$router.push("/AES_1");
+    // },
     getData() {
       this.$axios.post(this.urlInit).then(res => {
         let userData = res.data.userData.data;

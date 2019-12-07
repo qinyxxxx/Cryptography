@@ -3,10 +3,9 @@
     <div class="container">
       <div class="handle-box">
         <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/' }">Generate Keys</el-breadcrumb-item>
-          <el-breadcrumb-item>Exchange Public Keys</el-breadcrumb-item>
-          <el-breadcrumb-item>Encrypt Messages With My Private Key</el-breadcrumb-item>
-          <el-breadcrumb-item>Decrypt Messages With Sender's Public Key</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/DigitalSign_1' }">Generate Keys</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/DigitalSign_2' }">Send Public Key to Bob</el-breadcrumb-item>
+          <el-breadcrumb-item>Sign and Validate Messages</el-breadcrumb-item>
         </el-breadcrumb>
         <br />
         <br />
@@ -26,7 +25,7 @@
             Private key: {{pri_key}}
             <br />
             <br />
-            <el-button type="primary" @click="generate">Generate</el-button>
+            <el-button type="primary" @click="publish">Publish</el-button>
           </div>
         </el-col>
         <el-col :span="6" offset="2">
@@ -35,13 +34,7 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key}}
-            <br />
-            <br />
-            Private key: {{pri_key}}
-            <br />
-            <br />
-            <el-button type="primary" @click="generate">Generate</el-button>
+            Alice's Public key: {{pub_key}}
           </div>
         </el-col>
       </el-row>
@@ -95,11 +88,11 @@ export default {
     formatter(row, column) {
       return row.userAddress;
     },
-    preivious() {
-      if (this.active-- < 0) this.active = 0;
+    previous() {
+      this.$router.push("/DigitalSign_1");
     },
     next() {
-      if (this.active++ > 2) this.active = 0;
+      this.$router.push("/DigitalSign_3");
     },
     getData() {
       this.$axios.post(this.urlInit).then(res => {

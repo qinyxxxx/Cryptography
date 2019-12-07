@@ -4,7 +4,7 @@
     <div class="collapse-btn" @click="collapseChange">
       <i class="el-icon-menu"></i>
     </div>
-    <div class="logo">Cryptography</div>
+    <div class="logo">Cryptography In Our Daily Life</div>
     <div class="header-right">
       <div class="header-user-con">
         <!-- 全屏显示 -->
@@ -96,7 +96,7 @@ export default {
 }
 .header .logo {
   float: left;
-  width: 250px;
+  width: 750px;
   line-height: 70px;
 }
 .header-right {
