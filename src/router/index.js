@@ -27,7 +27,7 @@ export default new Router({
         {
           path: '/RSA_3',
           component: resolve => require(['../components/page/RSA_3.vue'], resolve),
-          meta: { title: 'Secure Your Communication With Keys!' }
+          meta: { title: 'Secure Your Communication With Keys' }
         },
         {
           path: '/AES_1',

@@ -3,9 +3,11 @@
     <div class="container">
       <div class="handle-box">
         <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/RSA_1' }">Generate Keys</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/RSA_2' }">Exchange Public Keys</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/RSA_3' }">Secure Your Communication With Keys!</el-breadcrumb-item>
+          <el-breadcrumb-item>Generate Keys</el-breadcrumb-item>
+          <el-breadcrumb-item>Exchange Public Keys</el-breadcrumb-item>
+          <el-breadcrumb-item>
+            <b>Secure Your Communication With Keys!</b>
+          </el-breadcrumb-item>
         </el-breadcrumb>
         <br />
         <br />
@@ -28,7 +30,6 @@
             {{pub_key_fromB}}
             <br />
             <br />
-            <el-button type="primary" @click="publish('A')">Publish</el-button>
           </div>
         </el-col>
         <el-col :span="6" offset="2">
@@ -46,40 +47,28 @@
             {{pub_key_fromA}}
             <br />
             <br />
-            <el-button type="primary" @click="publish('B')">Publish</el-button>
           </div>
         </el-col>
       </el-row>
-      <br />
-      <br />
-      
 
-      <el-row :type="flex" justify="center">
-        <el-col :span="6">
-            <el-input v-model="input1" placeholder="Alice's Plain Text"></el-input>
+      <el-row :gutter="20">
+        <el-col :span="7">
+          <el-input v-model="plain_text" placeholder="Alice's Plain Text"></el-input>
         </el-col>
-        <el-col :span="2">
-            <el-button type="primary">Encrypt!</el-button>
+        <el-col :span="3">
+          <el-button type="primary" @click="encrypt">Encrypt!</el-button>
         </el-col>
-        <el-col :span="6" offset="1">
-            <el-input placeholder="vneoaivrbelajhb" v-model="input2" :disabled="true"></el-input>
+        <el-col :span="7">
+          <el-input :placeholder="cipher_text" :disabled="true"></el-input>
         </el-col>
-        <el-col :span="6" offset="1">
-            <el-input placeholder="Alice's Plain Text" v-model="input3" :disabled="true"></el-input>
+        <el-col :span="7">
+          <el-input :placeholder="decrypt_text" :disabled="true"></el-input>
         </el-col>
       </el-row>
 
       <br />
       <br />
-      <!-- <el-steps :active="active" finish-status="success">
-        <el-step title="Step 1"></el-step>
-        <el-step title="Step 2"></el-step>
-        <el-step title="Step 3"></el-step>
-        <el-step title="Step 4"></el-step>
-        <el-step title="Step 5"></el-step>
-      </el-steps>-->
       <el-button style="margin-top: 12px;" @click="previous">Previous</el-button>
-      <!-- <el-button style="margin-top: 12px;" @click="next">Next</el-button> -->
     </div>
   </div>
 </template>
@@ -91,18 +80,16 @@ export default {
   name: "order",
   data() {
     return {
-      urlPublish: "/cryptography/rsa/publish",
+      urlEncrypt: "/cryptography/rsa/encrypt",
       guiUrl: gui,
       waUrl: wa,
       pub_key_A: "",
       pri_key_A: "",
       pub_key_B: "",
       pri_key_B: "",
-      pub_key_fromA: "",
-      pub_key_fromB: "", 
-      input1: "", 
-      input2: "", 
-      input3: ""
+      plain_text: "",
+      cipher_text: "",
+      decrypt_text: ""
     };
   },
   created() {
@@ -115,31 +102,29 @@ export default {
     previous() {
       this.$router.push("/RSA_2");
     },
-    // next() {
-    //   this.$router.push("/RSA_1");
-    // },
-    getData() {
-      this.$axios.post(this.urlInit).then(res => {
-        let userData = res.data.userData.data;
-        this.userData = userData;
-        this.total = userData.length;
-      });
-    },
-
-    publish(user) {
-      if (user == 'A') {
-        console.log(this.pub_key_fromA);
-        console.log(this.pub_key_A);
-        this.pub_key_fromA = this.pub_key_A;
-      } else {
-        console.log(this.pub_key_fromB);
-        console.log(this.pub_key_B);
-        this.pub_key_fromB = this.pub_key_B;
-      }
-    }
     // filterStatus(value, row) {
     //   return row.userStatus === value;
     // },
+    encrypt() {
+      // this.$axios
+      //   .post(this.urlEncrypt, {
+      //     plain_text: this.plain_text
+      //   })
+      //   .then(res => {
+      //     let res_data = res.data;
+      //     if (red_data.length == 0) {
+      //       this.$message({
+      //         message: "failed to encrypt",
+      //         type: "error"
+      //       });
+      //     } else {
+      //       this.cipher_text = res_data.cipher_text;
+      //       this.decrypt_text = res_data.decrypt_text;
+      //     }
+      //   });
+      this.cipher_text = 'asdsadasfdsf';
+      this.decrypt_text = this.plain_text;
+    },
     // search() {
     //   if (this.selectWord == "") {
     //     this.$message.error("抱歉，搜索内容不能为空");
@@ -162,7 +147,7 @@ export default {
     //         }
     //       });
     //   }
-    // },
+    // }
     // clear() {
     //   this.selectWord = "";
     //   this.getData();
@@ -200,9 +185,6 @@ export default {
 }
 .el-row {
   margin-bottom: 20px;
-  &:last-child {
-    margin-bottom: 0;
-  }
 }
 .el-col {
   border-radius: 4px;
@@ -217,6 +199,10 @@ export default {
   background: #e5e9f2;
 }
 .grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+}
+.border-content {
   border-radius: 4px;
   min-height: 36px;
 }

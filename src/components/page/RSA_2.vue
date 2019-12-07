@@ -3,7 +3,7 @@
     <div class="container">
       <div class="handle-box">
         <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/RSA_1' }">Generate Keys</el-breadcrumb-item>
+          <el-breadcrumb-item>Generate Keys</el-breadcrumb-item>
           <el-breadcrumb-item :to="{ path: '/RSA_2' }">Exchange Public Keys</el-breadcrumb-item>
           <el-breadcrumb-item>Secure Your Communication With Keys!</el-breadcrumb-item>
         </el-breadcrumb>
@@ -178,9 +178,6 @@ export default {
 }
 .el-row {
   margin-bottom: 20px;
-  &:last-child {
-    margin-bottom: 0;
-  }
 }
 .el-col {
   border-radius: 4px;

@@ -34,19 +34,12 @@
             <br />
             <br />
             <br />
-            Alice's Public key: {{pub_key}}
+            Alice's Public key: {{pub_key_fromA}}
           </div>
         </el-col>
       </el-row>
       <br />
       <br />
-      <!-- <el-steps :active="active" finish-status="success">
-        <el-step title="Step 1"></el-step>
-        <el-step title="Step 2"></el-step>
-        <el-step title="Step 3"></el-step>
-        <el-step title="Step 4"></el-step>
-        <el-step title="Step 5"></el-step>
-      </el-steps> -->
       <el-button style="margin-top: 12px;" @click="previous">Previous</el-button>
       <el-button style="margin-top: 12px;" @click="next">Next</el-button>
     </div>
@@ -64,99 +57,25 @@ export default {
       urlInit: "/pizzaexpress/user/getuserinfo",
       guiUrl: gui,
       waUrl: wa,
-      pub_key: 1111,
-      pri_key: 222,
-      active: 0,
-      userData: [],
-      cur_page: 1,
-      total: 0,
-      selectWord: "",
-      userID: "",
-      orderObj: "",
-      orderFormVisible: false
+      pub_key: "",
+      pri_key: "",
+      pub_key_fromA: ""
     };
   },
   created() {
-    this.getData();
+    this.pub_key = sessionStorage.getItem("pub_key");
+    this.pri_key = sessionStorage.getItem("pri_key");
   },
   methods: {
-    // 分页导航
-    handleCurrentChange(val) {
-      this.cur_page = val;
-      this.getData();
-    },
-    formatter(row, column) {
-      return row.userAddress;
-    },
     previous() {
       this.$router.push("/DigitalSign_1");
     },
     next() {
       this.$router.push("/DigitalSign_3");
     },
-    getData() {
-      this.$axios.post(this.urlInit).then(res => {
-        let userData = res.data.userData.data;
-        this.userData = userData;
-        this.total = userData.length;
-      });
-      // this.userData = [
-      //   {
-      //     userID: "1",
-      //     userName: "小王",
-      //     userPhone: "1388888888",
-      //     userStatus: "在线",
-      //     userAddress: "小王家里",
-      //     lastLogin: "2018-12-01 10:00"
-      //   },
-      //   {
-      //     userID: "2",
-      //     userName: "大王",
-      //     userPhone: "1388888888",
-      //     userStatus: "离线",
-      //     userAddress: "小王家里",
-      //     lastLogin: "2018-12-01 10:00"
-      //   },
-      //   {
-      //     userID: "1",
-      //     userName: "小王",
-      //     userPhone: "1388888888",
-      //     userStatus: "在线",
-      //     userAddress: "小王家里",
-      //     lastLogin: "2018-12-01 10:00"
-      //   }
-      // ];
-    },
-    // filterStatus(value, row) {
-    //   return row.userStatus === value;
-    // },
-    // search() {
-    //   if (this.selectWord == "") {
-    //     this.$message.error("抱歉，搜索内容不能为空");
-    //   } else {
-    //     this.userID = this.selectWord;
-    //     this.$axios
-    //       .post(this.urlSelectUser, {
-    //         userID: this.userID
-    //       })
-    //       .then(res => {
-    //         let userData = res.data.userData.data;
-    //         if (userData.length == 0) {
-    //           this.$message({
-    //             message: "未找到含有'" + this.selectWord + "'的记录",
-    //             type: "info"
-    //           });
-    //         } else {
-    //           this.userData = userData;
-    //           this.total = userData.length;
-    //         }
-    //       });
-    //   }
-    // },
-    // clear() {
-    //   this.selectWord = "";
-    //   this.getData();
-    // }
+    publish(user) {
+      this.pub_key_fromA = this.pub_key;
+    }
   }
 };
 </script>
@@ -190,9 +109,6 @@ export default {
 }
 .el-row {
   margin-bottom: 20px;
-  &:last-child {
-    margin-bottom: 0;
-  }
 }
 .el-col {
   border-radius: 4px;

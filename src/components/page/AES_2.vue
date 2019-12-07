@@ -3,13 +3,12 @@
     <div class="container">
       <div class="handle-box">
         <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/AES_1' }">Generate A Shared Secret</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/AES_2' }">Secure Your Communication With Your Key!</el-breadcrumb-item>
+          <el-breadcrumb-item>Generate A Shared Secret</el-breadcrumb-item>
+          <el-breadcrumb-item><b>Secure Your Communication With Your Key!</b></el-breadcrumb-item>
         </el-breadcrumb>
         <br />
         <br />
         <br />
-        <!-- <el-button type="plain" @click="clear">清除/刷新</el-button> -->
       </div>
       <el-row :type="flex" justify="center">
         <el-col :span="6" offset="6">
@@ -18,10 +17,7 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key}}
-            <br />
-            <br />
-            Private key: {{pri_key}}
+            Shared secret: {{shared_sec}}
           </div>
         </el-col>
         <el-col :span="6" offset="2">
@@ -30,42 +26,31 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key}}
-            <br />
-            <br />
-            Private key: {{pri_key}}
+            Shared secret: {{shared_sec}}
           </div>
         </el-col>
       </el-row>
       <br />
       <br />
 
-      <el-row :type="flex" justify="center">
-        <el-col :span="6">
-            <el-input v-model="input1" placeholder="Alice's Plain Text"></el-input>
+      <el-row :gutter="20">
+        <el-col :span="7">
+            <el-input v-model="plain_text" placeholder="Alice's Plain Text"></el-input>
         </el-col>
-        <el-col :span="2">
-            <el-button type="primary">Encrypt!</el-button>
+        <el-col :span="3">
+            <el-button type="primary" @click="encrypt">Encrypt!</el-button>
         </el-col>
-        <el-col :span="6" offset="1">
-            <el-input placeholder="vneoaivrbelajhb" v-model="input2" :disabled="true"></el-input>
+        <el-col :span="7">
+          <el-input :placeholder="cipher_text" :disabled="true"></el-input>
         </el-col>
-        <el-col :span="6" offset="1">
-            <el-input placeholder="Alice's Plain Text" v-model="input3" :disabled="true"></el-input>
+        <el-col :span="7">
+          <el-input :placeholder="decrypt_text" :disabled="true"></el-input>
         </el-col>
       </el-row>
 
       <br />
       <br />
-      <!-- <el-steps :active="active" finish-status="success">
-        <el-step title="Step 1"></el-step>
-        <el-step title="Step 2"></el-step>
-        <el-step title="Step 3"></el-step>
-        <el-step title="Step 4"></el-step>
-        <el-step title="Step 5"></el-step>
-      </el-steps> -->
       <el-button style="margin-top: 12px;" @click="previous">Previous</el-button>
-      <!-- <el-button style="margin-top: 12px;" @click="next">Next</el-button> -->
     </div>
   </div>
 </template>
@@ -77,99 +62,42 @@ export default {
   name: "order",
   data() {
     return {
-      urlSelectUser: "/pizzaexpress/user/getuserbyid",
-      urlInit: "/pizzaexpress/user/getuserinfo",
+      urlEncrypt: "/cryptography/aes/encrypt",
       guiUrl: gui,
       waUrl: wa,
-      pub_key: 1111,
-      pri_key: 222,
-      active: 0,
-      userData: [],
-      cur_page: 1,
-      total: 0,
-      selectWord: "",
-      userID: "",
-      orderObj: "",
-      orderFormVisible: false
+      shared_sec: "",
+      cipher_text: "",
+      decrypt_text: "",
+      plain_text: "",
     };
   },
   created() {
-    this.getData();
+    this.shared_sec = sessionStorage.getItem("shared_sec");
   },
   methods: {
-    // 分页导航
-    handleCurrentChange(val) {
-      this.cur_page = val;
-      this.getData();
-    },
-    formatter(row, column) {
-      return row.userAddress;
-    },
     previous() {
       this.$router.push("/AES_1");
     },
-    // next() {
-    //   this.$router.push("/AES_1");
-    // },
-    getData() {
-      this.$axios.post(this.urlInit).then(res => {
-        let userData = res.data.userData.data;
-        this.userData = userData;
-        this.total = userData.length;
-      });
-      // this.userData = [
-      //   {
-      //     userID: "1",
-      //     userName: "小王",
-      //     userPhone: "1388888888",
-      //     userStatus: "在线",
-      //     userAddress: "小王家里",
-      //     lastLogin: "2018-12-01 10:00"
-      //   },
-      //   {
-      //     userID: "2",
-      //     userName: "大王",
-      //     userPhone: "1388888888",
-      //     userStatus: "离线",
-      //     userAddress: "小王家里",
-      //     lastLogin: "2018-12-01 10:00"
-      //   },
-      //   {
-      //     userID: "1",
-      //     userName: "小王",
-      //     userPhone: "1388888888",
-      //     userStatus: "在线",
-      //     userAddress: "小王家里",
-      //     lastLogin: "2018-12-01 10:00"
-      //   }
-      // ];
+    encrypt() {
+      // this.$axios
+      //   .post(this.urlEncrypt, {
+      //     plain_text: this.plain_text
+      //   })
+      //   .then(res => {
+      //     let res_data = res.data;
+      //     if (red_data.length == 0) {
+      //       this.$message({
+      //         message: "failed to encrypt",
+      //         type: "error"
+      //       });
+      //     } else {
+      //       this.cipher_text = res_data.cipher_text;
+      //       this.decrypt_text = res_data.decrypt_text;
+      //     }
+      //   });
+      this.cipher_text = 'asdsadasfdsf';
+      this.decrypt_text = this.plain_text;
     },
-    // filterStatus(value, row) {
-    //   return row.userStatus === value;
-    // },
-    // search() {
-    //   if (this.selectWord == "") {
-    //     this.$message.error("抱歉，搜索内容不能为空");
-    //   } else {
-    //     this.userID = this.selectWord;
-    //     this.$axios
-    //       .post(this.urlSelectUser, {
-    //         userID: this.userID
-    //       })
-    //       .then(res => {
-    //         let userData = res.data.userData.data;
-    //         if (userData.length == 0) {
-    //           this.$message({
-    //             message: "未找到含有'" + this.selectWord + "'的记录",
-    //             type: "info"
-    //           });
-    //         } else {
-    //           this.userData = userData;
-    //           this.total = userData.length;
-    //         }
-    //       });
-    //   }
-    // },
     // clear() {
     //   this.selectWord = "";
     //   this.getData();
@@ -207,9 +135,6 @@ export default {
 }
 .el-row {
   margin-bottom: 20px;
-  &:last-child {
-    margin-bottom: 0;
-  }
 }
 .el-col {
   border-radius: 4px;

@@ -9,7 +9,6 @@
         <br />
         <br />
         <br />
-        <!-- <el-button type="plain" @click="clear">清除/刷新</el-button> -->
       </div>
       <el-row :type="flex" justify="center">
         <el-col :span="6" offset="6">
@@ -18,10 +17,7 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key}}
-            <br />
-            <br />
-            Private key: {{pri_key}}
+            Shared secret: {{shared_sec}}
           </div>
         </el-col>
         <el-col :span="6" offset="2">
@@ -30,32 +26,21 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key}}
-            <br />
-            <br />
-            Private key: {{pri_key}}
+            Shared secret: {{shared_sec}}
           </div>
         </el-col>
       </el-row>
       <br />
       <br />
 
-      <el-row :type="flex" justify="center">
-        <el-col :span="8" offset="9">
+      <el-row :gutter="20">
+        <el-col :span="6" :offset="9">
           <el-button type="primary" @click="generate">Generate a shared secret!</el-button>
         </el-col>
       </el-row>
 
       <br />
       <br />
-      <!-- <el-steps :active="active" finish-status="success">
-        <el-step title="Step 1"></el-step>
-        <el-step title="Step 2"></el-step>
-        <el-step title="Step 3"></el-step>
-        <el-step title="Step 4"></el-step>
-        <el-step title="Step 5"></el-step>
-      </el-steps> -->
-      <!-- <el-button style="margin-top: 12px;" @click="previous">Previous</el-button> -->
       <el-button style="margin-top: 12px;" @click="next">Next</el-button>
     </div>
   </div>
@@ -68,103 +53,35 @@ export default {
   name: "order",
   data() {
     return {
-      urlSelectUser: "/pizzaexpress/user/getuserbyid",
-      urlInit: "/pizzaexpress/user/getuserinfo",
+      urlGenerate: "/cryptography/aes/generate",
       guiUrl: gui,
       waUrl: wa,
-      pub_key: 1111,
-      pri_key: 222,
-      active: 0,
-      userData: [],
-      cur_page: 1,
-      total: 0,
-      selectWord: "",
-      userID: "",
-      orderObj: "",
-      orderFormVisible: false
+      shared_sec: ""
     };
   },
   created() {
-    this.getData();
+    this.shared_sec = sessionStorage.getItem("shared_sec");
   },
   methods: {
-    // 分页导航
-    handleCurrentChange(val) {
-      this.cur_page = val;
-      this.getData();
-    },
-    formatter(row, column) {
-      return row.userAddress;
-    },
-    // previous() {
-    //   this.$router.push("/");
-    // },
     next() {
       this.$router.push("/AES_2");
     },
-    getData() {
-      this.$axios.post(this.urlInit).then(res => {
-        let userData = res.data.userData.data;
-        this.userData = userData;
-        this.total = userData.length;
-      });
-      // this.userData = [
-      //   {
-      //     userID: "1",
-      //     userName: "小王",
-      //     userPhone: "1388888888",
-      //     userStatus: "在线",
-      //     userAddress: "小王家里",
-      //     lastLogin: "2018-12-01 10:00"
-      //   },
-      //   {
-      //     userID: "2",
-      //     userName: "大王",
-      //     userPhone: "1388888888",
-      //     userStatus: "离线",
-      //     userAddress: "小王家里",
-      //     lastLogin: "2018-12-01 10:00"
-      //   },
-      //   {
-      //     userID: "1",
-      //     userName: "小王",
-      //     userPhone: "1388888888",
-      //     userStatus: "在线",
-      //     userAddress: "小王家里",
-      //     lastLogin: "2018-12-01 10:00"
+    generate() {
+      // this.$axios.post(this.urlGenerate).then(res => {
+      //   let shared_sec = res.data.shared_sec;
+      //   if (shared_sec == None) {
+      //     this.$message({
+      //       message: "failed to generate'",
+      //       type: "error"
+      //     });
+      //   } else {
+      //     this.shared_sec = shared_sec;
+      //     sessionStorage.setItem("shared_sec", this.shared_sec);
       //   }
-      // ];
-    },
-    // filterStatus(value, row) {
-    //   return row.userStatus === value;
-    // },
-    // search() {
-    //   if (this.selectWord == "") {
-    //     this.$message.error("抱歉，搜索内容不能为空");
-    //   } else {
-    //     this.userID = this.selectWord;
-    //     this.$axios
-    //       .post(this.urlSelectUser, {
-    //         userID: this.userID
-    //       })
-    //       .then(res => {
-    //         let userData = res.data.userData.data;
-    //         if (userData.length == 0) {
-    //           this.$message({
-    //             message: "未找到含有'" + this.selectWord + "'的记录",
-    //             type: "info"
-    //           });
-    //         } else {
-    //           this.userData = userData;
-    //           this.total = userData.length;
-    //         }
-    //       });
-    //   }
-    // },
-    // clear() {
-    //   this.selectWord = "";
-    //   this.getData();
-    // }
+      // });
+      this.shared_sec = "shared_balbaablads";
+      sessionStorage.setItem("shared_sec", this.shared_sec);
+    }
   }
 };
 </script>
@@ -198,9 +115,6 @@ export default {
 }
 .el-row {
   margin-bottom: 20px;
-  &:last-child {
-    margin-bottom: 0;
-  }
 }
 .el-col {
   border-radius: 4px;

@@ -98,9 +98,13 @@ export default {
       //     if (user == "A") {
       //       this.pub_key_A = pub_key;
       //       this.pri_key_A = pri_key;
+      //       sessionStorage.setItem("pub_key_A", this.pub_key_A);
+      //       sessionStorage.setItem("pri_key_A", this.pri_key_A);
       //     } else {
       //       this.pub_key_B = pub_key;
       //       this.pri_key_B = pri_key;
+      //       sessionStorage.setItem("pub_key_B", this.pub_key_B);
+      //       sessionStorage.setItem("pri_key_B", this.pri_key_B);
       //     }
       //   }
       // });
@@ -179,9 +183,6 @@ export default {
 }
 .el-row {
   margin-bottom: 20px;
-  &:last-child {
-    margin-bottom: 0;
-  }
 }
 .el-col {
   border-radius: 4px;
