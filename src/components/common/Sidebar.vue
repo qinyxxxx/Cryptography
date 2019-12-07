@@ -49,17 +49,17 @@ export default {
       collapse: false,
       items: [
         {
-          icon: "el-icon-error",
+          icon: "el-icon-arrow-right",
           index: "RSA_1",
-          title: "RSA"
+          title: "RSA Encryption"
         },
         {
-          icon: "el-icon-success",
-          index: "AES",
-          title: "AES"
+          icon: "el-icon-arrow-right",
+          index: "AES_1",
+          title: "AES Encryption"
         },
         {
-          icon: "el-icon-warning",
+          icon: "el-icon-arrow-right",
           index: "DigitalSign",
           title: "Digital Sign"
         }

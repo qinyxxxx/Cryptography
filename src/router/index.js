@@ -30,9 +30,14 @@ export default new Router({
           meta: { title: 'Secure Your Communication With Keys!' }
         },
         {
-          path: '/AES',
-          component: resolve => require(['../components/page/AES.vue'], resolve),
-          meta: { title: 'AES' }
+          path: '/AES_1',
+          component: resolve => require(['../components/page/AES_1.vue'], resolve),
+          meta: { title: 'Generate A Shared Secret' }
+        },
+        {
+          path: '/AES_2',
+          component: resolve => require(['../components/page/AES_2.vue'], resolve),
+          meta: { title: 'Secure Your Communication With Your Key!' }
         },
         {
           path: '/DigitalSign',

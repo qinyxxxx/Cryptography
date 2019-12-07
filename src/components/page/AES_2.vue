@@ -3,9 +3,8 @@
     <div class="container">
       <div class="handle-box">
         <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/' }">Decide A Sharing Secret Key</el-breadcrumb-item>
-          <el-breadcrumb-item>Encrypt Messages</el-breadcrumb-item>
-          <el-breadcrumb-item>Decrypt Messages</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/AES_1' }">Generate A Shared Secret</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/AES_2' }">Secure Your Communication With Your Key!</el-breadcrumb-item>
         </el-breadcrumb>
         <br />
         <br />
@@ -23,9 +22,6 @@
             <br />
             <br />
             Private key: {{pri_key}}
-            <br />
-            <br />
-            <el-button type="primary" @click="generate">Generate</el-button>
           </div>
         </el-col>
         <el-col :span="6" offset="2">
@@ -38,12 +34,18 @@
             <br />
             <br />
             Private key: {{pri_key}}
-            <br />
-            <br />
-            <el-button type="primary" @click="generate">Generate</el-button>
           </div>
         </el-col>
       </el-row>
+      <br />
+      <br />
+
+      <el-row :type="flex" justify="center">
+        <el-col :span="8" offset="9">
+          <el-button type="primary" @click="generate">Generate a shared secret!</el-button>
+        </el-col>
+      </el-row>
+
       <br />
       <br />
       <!-- <el-steps :active="active" finish-status="success">
@@ -94,11 +96,11 @@ export default {
     formatter(row, column) {
       return row.userAddress;
     },
-    preivious() {
-      if (this.active-- < 0) this.active = 0;
+    previous() {
+      this.$router.push("/AES_1");
     },
     next() {
-      if (this.active++ > 2) this.active = 0;
+      this.$router.push("/AES_1");
     },
     getData() {
       this.$axios.post(this.urlInit).then(res => {
