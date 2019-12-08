@@ -79,24 +79,25 @@ export default {
       this.$router.push("/AES_1");
     },
     encrypt() {
-      // this.$axios
-      //   .post(this.urlEncrypt, {
-      //     plain_text: this.plain_text
-      //   })
-      //   .then(res => {
-      //     let res_data = res.data;
-      //     if (red_data.length == 0) {
-      //       this.$message({
-      //         message: "failed to encrypt",
-      //         type: "error"
-      //       });
-      //     } else {
-      //       this.cipher_text = res_data.cipher_text;
-      //       this.decrypt_text = res_data.decrypt_text;
-      //     }
-      //   });
-      this.cipher_text = 'asdsadasfdsf';
-      this.decrypt_text = this.plain_text;
+      this.$axios
+        .post(this.urlEncrypt, {
+          plain_text: this.plain_text,
+          pub_key: this.shared_sec,
+        })
+        .then(res => {
+          let res_data = res.data;
+          if (red_data.length == 0) {
+            this.$message({
+              message: "failed to encrypt",
+              type: "error"
+            });
+          } else {
+            this.cipher_text = res_data.cipher_text;
+            this.decrypt_text = res_data.decrypt_text;
+          }
+        });
+      // this.cipher_text = 'asdsadasfdsf';
+      // this.decrypt_text = this.plain_text;
     },
     // clear() {
     //   this.selectWord = "";
