@@ -86,7 +86,7 @@ export default {
         })
         .then(res => {
           let res_data = res.data;
-          if (red_data.length == 0) {
+          if (res_data.length === 0) {
             this.$message({
               message: "failed to encrypt",
               type: "error"

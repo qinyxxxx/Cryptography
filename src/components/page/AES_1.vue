@@ -67,20 +67,20 @@ export default {
       this.$router.push("/AES_2");
     },
     generate() {
-      // this.$axios.post(this.urlGenerate).then(res => {
-      //   let shared_sec = res.data.shared_sec;
-      //   if (shared_sec == None) {
-      //     this.$message({
-      //       message: "failed to generate'",
-      //       type: "error"
-      //     });
-      //   } else {
-      //     this.shared_sec = shared_sec;
-      //     sessionStorage.setItem("shared_sec", this.shared_sec);
-      //   }
-      // });
-      this.shared_sec = "shared_balbaablads";
-      sessionStorage.setItem("shared_sec", this.shared_sec);
+      this.$axios.post(this.urlGenerate).then(res => {
+        let shared_sec = res.data.shared_sec;
+        if (shared_sec === null) {
+          this.$message({
+            message: "failed to generate'",
+            type: "error"
+          });
+        } else {
+          this.shared_sec = shared_sec;
+          sessionStorage.setItem("shared_sec", this.shared_sec);
+        }
+      });
+      // this.shared_sec = "shared_balbaablads";
+      // sessionStorage.setItem("shared_sec", this.shared_sec);
     }
   }
 };
