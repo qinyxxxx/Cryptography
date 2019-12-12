@@ -18,10 +18,12 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key}}
+            Public key: 
+            <div class="truncate-brief"> {{pub_key}} </div>
             <br />
             <br />
-            Private key: {{pri_key}}
+            Private key: 
+            <div class="truncate-brief"> {{pri_key}} </div>
           </div>
         </el-col>
         <el-col :span="6" offset="2">
@@ -29,6 +31,9 @@
             <el-image style="width: 100px; height: 100px" :src="waUrl" :fit="fit"></el-image>
             <br />
             <br />
+            <br />
+            Alice's Public key: 
+            <div class="truncate-brief"> {{pub_key}} </div>
           </div>
         </el-col>
       </el-row>
@@ -61,6 +66,28 @@
       </el-steps> -->
       <el-button style="margin-top: 12px;" @click="previous">Previous</el-button>
       <!-- <el-button style="margin-top: 12px;" @click="next">Next</el-button> -->
+      
+      <!-- <br />
+      <br />
+      <el-row :type="flex" justify="center">
+        <el-col :span="6" offset="6">
+          <div class="grid-content">
+            Public key:
+            <div class="truncate"> {{pub_key}} </div>
+            <br />
+            <br />
+            Private key:
+            <div class="truncate"> {{pri_key}} </div>
+          </div>
+        </el-col>
+        <el-col :span="6" offset="2">
+          <div class="grid-content">
+            Alice's Public key: 
+            <div class="truncate"> {{pub_key}} </div>
+          </div>
+        </el-col>
+      </el-row> -->
+
     </div>
   </div>
 </template>
@@ -72,7 +99,7 @@ export default {
   name: "order",
   data() {
     return {
-      urlencrypt: "/digitalsign/encrypt",
+      urlencrypt: "/sign/encrypt",
       guiUrl: gui,
       waUrl: wa,
       pub_key: "",
@@ -91,30 +118,36 @@ export default {
       this.$router.push("/DigitalSign_2");
     },
     encrypt() {
-      // this.$axios
-      //   .post(this.urlEncrypt, {
-      //     plain_text: this.plain_text
-      //   })
-      //   .then(res => {
-      //     let res_data = res.data;
-      //     if (red_data.length == 0) {
-      //       this.$message({
-      //         message: "failed to encrypt",
-      //         type: "error"
-      //       });
-      //     } else {
-      //       this.cipher_text = res_data.cipher_text;
-      //       this.decrypt_text = res_data.decrypt_text;
-      //     }
-      //   });
-      this.cipher_text = 'poiuytrefghjkl';
-      this.decrypt_text = this.plain_text;
+      this.$axios.
+      post(this.urlencrypt, {
+          plain_text: this.plain_text
+        }).then(res => {
+          let res_data = res.data.text_data;
+          this.cipher_text = res_data.cipher_text;
+          this.decrypt_text = res_data.decrypt_text;
+        });
+      // this.cipher_text = 'poiuytrefghjkl';
+      // this.decrypt_text = this.plain_text;
     },
   }
 };
 </script>
 
 <style scoped>
+.truncate{
+width:300px;
+word-break:break-word;
+text-overflow:ellipsis;
+white-space:no-wrap;
+}
+
+.truncate-brief{
+width:300px;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:no-wrap;
+}
+
 .handle-box {
   margin-bottom: 20px;
 }
