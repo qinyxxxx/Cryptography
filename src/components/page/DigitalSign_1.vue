@@ -18,10 +18,12 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key}}
+            Public key: 
+            <div class="truncate-brief"> {{pub_key}} </div>
             <br />
             <br />
-            Private key: {{pri_key}}
+            Private key: 
+            <div class="truncate-brief"> {{pri_key}} </div>
             <br />
             <br />
             <el-button type="primary" @click="generate">Generate</el-button>
@@ -36,6 +38,20 @@
       <br />
       <br />
       <el-button style="margin-top: 12px;" @click="next">Next</el-button>
+      <br />
+      <br />
+      <el-row :type="flex" justify="center">
+        <el-col :span="6" offset="6">
+          <div class="grid-content">
+            Public key:
+            <div class="truncate"> {{pub_key}} </div>
+            <br />
+            <br />
+            Private key:
+            <div class="truncate"> {{pri_key}} </div>
+          </div>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -47,7 +63,7 @@ export default {
   name: "order",
   data() {
     return {
-      urlGenerate: "/digitalsign/generate",
+      urlGenerate: "/sign/generate",
       guiUrl: gui,
       waUrl: wa,
       pub_key: "",
@@ -59,36 +75,49 @@ export default {
     this.pri_key = sessionStorage.getItem("pri_key");
   },
   methods: {
+    open1() {
+        this.$message({
+          showClose: true,
+          message: sessionStorage.getItem("pub_key")
+        });
+    },
     next() {
       this.$router.push("/DigitalSign_2");
     },
     generate() {
-      // this.$axios.post(this.urlGenerate).then(res => {
-      //   let pub_key = res.data.pub_key;
-      //   let pri_key = res.data.pri_key;
-      //   if (pub_key == None || pri_key == None) {
-      //     this.$message({
-      //       message: "failed to generate'",
-      //       type: "error"
-      //     });
-      //   } else {
-      //     this.pub_key = pub_key;
-      //     this.pri_key = pri_key;
-      //     sessionStorage.setItem("pub_key", this.pub_key);
-      //     sessionStorage.setItem("pri_key", this.pri_key);
-      //   }
-      // });
-      this.pub_key = "public key adasdasdasdsa";
-      this.pub_key = "public key weiqwyroeir";
-      this.pri_key = "private key sfsfdfd";
-      sessionStorage.setItem("pub_key", this.pub_key);
-      sessionStorage.setItem("pri_key", this.pri_key);
+      this.$axios.post(this.urlGenerate).then(res => {
+        let pub_key = res.data.key_data.pub_key;
+        let pri_key = res.data.key_data.pri_key;
+        this.pub_key = pub_key;
+        this.pri_key = pri_key;
+        sessionStorage.setItem("pub_key", this.pub_key);
+        sessionStorage.setItem("pri_key", this.pri_key);
+      });
+      // this.pub_key = "public key adasdasdasdsa";
+      // this.pub_key = "public key weiqwyroeir";
+      // this.pri_key = "private key sfsfdfd";
+      // sessionStorage.setItem("pub_key", this.pub_key);
+      // sessionStorage.setItem("pri_key", this.pri_key);
     }
   }
 };
 </script>
 
 <style scoped>
+.truncate{
+width:300px;
+word-break:break-word;
+text-overflow:ellipsis;
+white-space:no-wrap;
+}
+
+.truncate-brief{
+width:300px;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:no-wrap;
+}
+
 .handle-box {
   margin-bottom: 20px;
 }

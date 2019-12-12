@@ -17,7 +17,8 @@
             <br />
             <br />
             <br />
-            Shared secret: {{shared_sec}}
+            Shared secret: 
+            <div class="truncate-brief"> {{shared_sec}} </div>
           </div>
         </el-col>
         <el-col :span="6" offset="2">
@@ -26,7 +27,8 @@
             <br />
             <br />
             <br />
-            Shared secret: {{shared_sec}}
+            Shared secret: 
+            <div class="truncate-brief"> {{shared_sec}} </div>
           </div>
         </el-col>
       </el-row>
@@ -87,6 +89,20 @@ export default {
 </script>
 
 <style scoped>
+.truncate{
+width:300px;
+word-break:break-word;
+text-overflow:ellipsis;
+white-space:no-wrap;
+}
+
+.truncate-brief{
+width:300px;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:no-wrap;
+}
+
 .handle-box {
   margin-bottom: 20px;
 }

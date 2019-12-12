@@ -19,13 +19,15 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key}}
+            Public key: 
+            <div class="truncate-brief"> {{pub_key}} </div>
             <br />
             <br />
-            Private key: {{pri_key}}
+            Private key: 
+            <div class="truncate-brief"> {{pri_key}} </div>
             <br />
             <br />
-            <el-button type="primary" @click="publish">Publish</el-button>
+            <el-button type="primary" @click="publish">Publish My Public Key</el-button>
           </div>
         </el-col>
         <el-col :span="6" offset="2">
@@ -34,7 +36,8 @@
             <br />
             <br />
             <br />
-            Alice's Public key: {{pub_key_fromA}}
+            Alice's Public key: 
+            <div class="truncate-brief"> {{pub_key_fromA}} </div>
           </div>
         </el-col>
       </el-row>
@@ -42,6 +45,27 @@
       <br />
       <el-button style="margin-top: 12px;" @click="previous">Previous</el-button>
       <el-button style="margin-top: 12px;" @click="next">Next</el-button>
+
+      <!-- <br />
+      <br />
+      <el-row :type="flex" justify="center">
+        <el-col :span="6" offset="6">
+          <div class="grid-content">
+            Public key:
+            <div class="truncate"> {{pub_key}} </div>
+            <br />
+            <br />
+            Private key:
+            <div class="truncate"> {{pri_key}} </div>
+          </div>
+        </el-col>
+        <el-col :span="6" offset="2">
+          <div class="grid-content">
+            Alice's Public key: 
+            <div class="truncate"> {{pub_key_fromA}} </div>
+          </div>
+        </el-col>
+      </el-row> -->
     </div>
   </div>
 </template>
@@ -53,7 +77,7 @@ export default {
   name: "order",
   data() {
     return {
-      urlPublish: "/digitalsign/publish",
+      urlPublish: "/sign/publish",
       guiUrl: gui,
       waUrl: wa,
       pub_key: "",
@@ -80,6 +104,20 @@ export default {
 </script>
 
 <style scoped>
+.truncate{
+width:300px;
+word-break:break-word;
+text-overflow:ellipsis;
+white-space:no-wrap;
+}
+
+.truncate-brief{
+width:300px;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:no-wrap;
+}
+
 .handle-box {
   margin-bottom: 20px;
 }

@@ -21,13 +21,15 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key_A}}
+            Public key: 
+            <div class="truncate-brief"> {{pub_key_A}} </div>
             <br />
             <br />
-            Private key: {{pri_key_A}}
+            Private key: 
+            <div class="truncate-brief"> {{pri_key_A}} </div>
             <br />
             <br />
-            {{pub_key_fromB}}
+            <div class="truncate-brief"> {{pub_key_fromB}} </div>
             <br />
             <br />
           </div>
@@ -38,13 +40,15 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key_B}}
+            Public key: 
+            <div class="truncate-brief"> {{pub_key_B}} </div>
             <br />
             <br />
-            Private key: {{pri_key_B}}
+            Private key: 
+            <div class="truncate-brief"> {{pri_key_B}} </div>
             <br />
             <br />
-            {{pub_key_fromA}}
+            <div class="truncate-brief"> {{pub_key_fromA}} </div>
             <br />
             <br />
           </div>
@@ -109,11 +113,10 @@ export default {
       this.$axios
         .post(this.urlEncrypt, {
           plain_text: this.plain_text,
-          pub_key: this.pub_key_B,
         })
         .then(res => {
           let res_data = res.data.text_data;
-          if (res_data.length == 0) {
+          if (res_data.length === 0) {
             this.$message({
               message: "failed to encrypt",
               type: "error"
@@ -159,6 +162,20 @@ export default {
 </script>
 
 <style scoped>
+.truncate{
+width:300px;
+word-break:break-word;
+text-overflow:ellipsis;
+white-space:no-wrap;
+}
+
+.truncate-brief{
+width:300px;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:no-wrap;
+}
+
 .handle-box {
   margin-bottom: 20px;
 }

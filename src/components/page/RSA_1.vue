@@ -19,10 +19,12 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key_A}}
+            Public key: 
+            <div class="truncate-brief"> {{pub_key_A}} </div>
             <br />
             <br />
-            Private key: {{pri_key_A}}
+            Private key: 
+            <div class="truncate-brief"> {{pri_key_A}} </div>
             <br />
             <br />
             <el-button type="primary" @click="generate('A')">Generate</el-button>
@@ -34,10 +36,12 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key_B}}
+            Public key: 
+            <div class="truncate-brief"> {{pub_key_B}} </div>
             <br />
             <br />
-            Private key: {{pri_key_B}}
+            Private key: 
+            <div class="truncate-brief"> {{pri_key_B}} </div>
             <br />
             <br />
             <el-button type="primary" @click="generate('B')">Generate</el-button>
@@ -54,6 +58,32 @@
         <el-step title="Step 5"></el-step>
       </el-steps>-->
       <el-button style="margin-top: 12px;" @click="next">Next</el-button>
+
+      <br />
+      <br />
+      <el-row :type="flex" justify="center">
+        <el-col :span="6" offset="6">
+          <div class="grid-content">
+            Public key:
+            <div class="truncate"> {{pub_key_A}} </div>
+            <br />
+            <br />
+            Private key:
+            <div class="truncate"> {{pri_key_A}} </div>
+          </div>
+        </el-col>
+        <el-col :span="6" offset="2">
+          <div class="grid-content">
+            Public key:
+            <div class="truncate"> {{pub_key_B}} </div>
+            <br />
+            <br />
+            Private key:
+            <div class="truncate"> {{pri_key_B}} </div>
+          </div>
+        </el-col>
+      </el-row>
+
     </div>
   </div>
 </template>
@@ -71,7 +101,8 @@ export default {
       pub_key_A: "",
       pri_key_A: "",
       pub_key_B: "",
-      pri_key_B: ""
+      pri_key_B: "", 
+      who: "", 
     };
   },
   created() {
@@ -86,78 +117,44 @@ export default {
     },
 
     generate(user) {
-      this.$axios.post(this.urlGenerate).then(res => {
+      this.$axios.post(this.urlGenerate, {
+        who: user, 
+      }).then(res => {
         let pub_key = res.data.key_data.pub_key;
         let pri_key = res.data.key_data.pri_key;
         console.log(pub_key);
-        let status_code = res.statusCode;
-        console.log("this is code:", status_code);
-        if (status_code == 500) {
-          this.$message({
-            message: "failed to generate'",
-            type: "error"
-          });
+        if (user == "A") {
+          this.pub_key_A = pub_key;
+          this.pri_key_A = pri_key;
+          sessionStorage.setItem("pub_key_A", this.pub_key_A);
+          sessionStorage.setItem("pri_key_A", this.pri_key_A);
         } else {
-          if (user == "A") {
-            this.pub_key_A = pub_key;
-            this.pri_key_A = pri_key;
-            sessionStorage.setItem("pub_key_A", this.pub_key_A);
-            sessionStorage.setItem("pri_key_A", this.pri_key_A);
-          } else {
-            this.pub_key_B = pub_key;
-            this.pri_key_B = pri_key;
-            sessionStorage.setItem("pub_key_B", this.pub_key_B);
-            sessionStorage.setItem("pri_key_B", this.pri_key_B);
-          }
+          this.pub_key_B = pub_key;
+          this.pri_key_B = pri_key;
+          sessionStorage.setItem("pub_key_B", this.pub_key_B);
+          sessionStorage.setItem("pri_key_B", this.pri_key_B);
         }
       });
-      // if (user == "A") {
-      //   this.pub_key_A = "public_aaa";
-      //   this.pri_key_A = "private_aaa";
-      //   sessionStorage.setItem("pub_key_A", this.pub_key_A);
-      //   sessionStorage.setItem("pri_key_A", this.pri_key_A);
-      // } else {
-      //   this.pub_key_B = "public_bbb";
-      //   this.pri_key_B = "private_bbb";
-      //   sessionStorage.setItem("pub_key_B", this.pub_key_B);
-      //   sessionStorage.setItem("pri_key_B", this.pri_key_B);
-      // }
     }
-    // filterStatus(value, row) {
-    //   return row.userStatus === value;
-    // },
-    // search() {
-    //   if (this.selectWord == "") {
-    //     this.$message.error("抱歉，搜索内容不能为空");
-    //   } else {
-    //     this.userID = this.selectWord;
-    //     this.$axios
-    //       .post(this.urlSelectUser, {
-    //         userID: this.userID
-    //       })
-    //       .then(res => {
-    //         let userData = res.data.userData.data;
-    //         if (userData.length == 0) {
-    //           this.$message({
-    //             message: "未找到含有'" + this.selectWord + "'的记录",
-    //             type: "info"
-    //           });
-    //         } else {
-    //           this.userData = userData;
-    //           this.total = userData.length;
-    //         }
-    //       });
-    //   }
-    // },
-    // clear() {
-    //   this.selectWord = "";
-    //   this.getData();
-    // }
   }
 };
 </script>
 
 <style scoped>
+.truncate{
+width:300px;
+word-break:break-word;
+text-overflow:ellipsis;
+white-space:no-wrap;
+}
+
+.truncate-brief{
+width:300px;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:no-wrap;
+}
+
 .handle-box {
   margin-bottom: 20px;
 }

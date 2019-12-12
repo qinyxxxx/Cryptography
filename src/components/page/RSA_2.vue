@@ -19,16 +19,18 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key_A}}
+            Public key: 
+            <div class="truncate-brief"> {{pub_key_A}} </div>
             <br />
             <br />
-            Private key: {{pri_key_A}}
+            Private key: 
+            <div class="truncate-brief"> {{pri_key_A}} </div>
             <br />
             <br />
-            {{pub_key_fromB}}
+            <div class="truncate-brief"> {{pub_key_fromB}} </div>
             <br />
             <br />
-            <el-button type="primary" @click="publish('A')">Publish</el-button>
+            <el-button type="primary" @click="publish('A')">Publish My Public Key</el-button>
           </div>
         </el-col>
         <el-col :span="6" offset="2">
@@ -37,16 +39,18 @@
             <br />
             <br />
             <br />
-            Public key: {{pub_key_B}}
+            Public key: 
+            <div class="truncate-brief"> {{pub_key_B}} </div>
             <br />
             <br />
-            Private key: {{pri_key_B}}
+            Private key: 
+            <div class="truncate-brief"> {{pri_key_B}} </div>
             <br />
             <br />
-            {{pub_key_fromA}}
+            <div class="truncate-brief"> {{pub_key_fromA}} </div>
             <br />
             <br />
-            <el-button type="primary" @click="publish('B')">Publish</el-button>
+            <el-button type="primary" @click="publish('B')">Publish My Public Key</el-button>
           </div>
         </el-col>
       </el-row>
@@ -150,6 +154,20 @@ export default {
 </script>
 
 <style scoped>
+.truncate{
+width:300px;
+word-break:break-word;
+text-overflow:ellipsis;
+white-space:no-wrap;
+}
+
+.truncate-brief{
+width:300px;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:no-wrap;
+}
+
 .handle-box {
   margin-bottom: 20px;
 }
